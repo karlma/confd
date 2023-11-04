@@ -5,7 +5,8 @@ GIT_SHA=`git rev-parse --short HEAD || echo`
 build:
 	@echo "Building confd..."
 	@mkdir -p bin
-	@go build -ldflags "-X main.GitSHA=${GIT_SHA}" -o bin/confd .
+	#@go build -ldflags "-X main.GitSHA=${GIT_SHA}" -o bin/confd .
+	@GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -ldflags="-s -w -X main.GitSHA=${GIT_SHA}" -o bin/confd
 
 install:
 	@echo "Installing confd..."
